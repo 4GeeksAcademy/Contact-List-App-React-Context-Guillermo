@@ -1,17 +1,21 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
+			contact: [
 				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
+					name: "Guille",
+					address: "Gc",
+					phone: "1234",
+					email: "asd@123.com",
+					photo: "https://media.istockphoto.com/id/1386479313/es/foto/feliz-mujer-de-negocios-afroamericana-millennial-posando-aislada-en-blanco.jpg?s=2048x2048&w=is&k=20&c=AVZP51f6LngIhk-BPEw_HEyog_EIMWuqUZNvZt_hRuY="
 				},
 				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
+					name: "Guille2",
+					address: "Gc2",
+					phone: "12342",
+					email: "asd@123.com2",
+					photo: "url2"
+				},
 			]
 		},
 		actions: {
