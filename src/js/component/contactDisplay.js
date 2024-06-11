@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 
-const Contact = () => {
+const ContactDisplay = () => {
   const { store, actions } = useContext(Context);
 
   return (
@@ -11,7 +11,7 @@ const Contact = () => {
       ) : (
         store.contact.map((contact) => (
           <div
-            key={contact.id}
+            key={contact.name}
             className="d-flex justify-content-between px-5 col-8 border py-3 my-2"
           >
             <div className="d-flex">
@@ -45,4 +45,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactDisplay;

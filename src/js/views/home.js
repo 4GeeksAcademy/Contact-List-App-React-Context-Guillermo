@@ -1,11 +1,13 @@
 import React from "react";
 import "../../styles/home.css";
-import Contact from "../component/contact";
+import ContactDisplay from "../component/contactDisplay";
+import NavBar from "../component/navBar";
 
 export const Home = () => {
   return (
-    <>
-      <Contact />
-    </>
+    <div className="container">
+      <NavBar />
+      <ContactDisplay />
+    </div>
   );
 };
