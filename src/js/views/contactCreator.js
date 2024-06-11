@@ -25,19 +25,14 @@ const ContactCreator = () => {
         }
       );
 
-      // Verifica si la respuesta es exitosa
       if (!respuesta.ok) {
-        // Si no es exitosa, lanza un error con el estado de la respuesta
         throw new Error(`Error en la solicitud: ${respuesta.status}`);
       }
 
-      // Convierte la respuesta a formato JSON
       const datos = await respuesta.json();
 
-      // Devuelve los datos obtenidos
       return datos;
     } catch (error) {
-      // Maneja cualquier error que ocurra en el bloque try
       console.error("Hubo un problema con la solicitud fetch:", error);
     }
   };

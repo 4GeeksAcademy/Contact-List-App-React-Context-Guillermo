@@ -6,19 +6,19 @@ const NavBar = () => {
   const { store, actions } = useContext(Context);
 
   const [newUserName, setNewUserName] = useState("");
-  // const [userName, setUserName] = useState("")
-  console.log(store.userName.length);
 
-  // {actions.createUser(newUserName)
+  console.log("Length of store.userName:", store.userName.length);
 
   const createUserName = (e) => {
     if (e.key === "Enter") {
+      console.log("Creating user with name:", newUserName);
       actions.createUser(newUserName);
       userCreator();
     }
   };
 
   const inputUsername = (e) => {
+    console.log("Updating newUserName with:", e.target.value);
     setNewUserName(e.target.value);
   };
 
@@ -30,21 +30,18 @@ const NavBar = () => {
           method: "POST",
           headers: {
             accept: "application/json",
+            "Content-Type": "application/json",
           },
         }
       );
-
-      // Verifica si la respuesta es exitosa
-      if (!respuesta.ok) {
-        // Si no es exitosa, lanza un error con el estado de la respuesta
-        throw new Error(`Error en la solicitud: ${respuesta.status}`);
-      }
-
-      // Convierte la respuesta a formato JSON
       const datos = await respuesta.json();
-
-      // Devuelve los datos obtenidos
-      return datos;
+      console.log("Response data:", datos); // Imprime los datos obtenidos
+      datos.detail == `Agenda "${store.userName}" already exists.`
+        ? (alert(
+            `El usuario ${store.userName} ya existe, cargando lista de contactos`
+          ),
+          actions.getContactList(newUserName))
+        : null;
     } catch (error) {
       // Maneja cualquier error que ocurra en el bloque try
       console.error("Hubo un problema con la solicitud fetch:", error);
