@@ -9,6 +9,7 @@ const ContactCreator = () => {
     email: "",
     phone: "",
     address: "",
+    id: "",
   });
 
   const userCreator = async () => {
@@ -27,7 +28,7 @@ const ContactCreator = () => {
 
       if (!respuesta.ok) {
         throw new Error(`Error en la solicitud: ${respuesta.status}`);
-      }
+      } else actions.getContactList(store.userName);
 
       const datos = await respuesta.json();
 
@@ -50,6 +51,7 @@ const ContactCreator = () => {
       ...prevInput,
       [id]: newContactInput.phone,
     }));
+
     actions.addContact(newContactInput);
     userCreator();
     console.log(newContactInput);
@@ -114,6 +116,9 @@ const ContactCreator = () => {
       <Link to={`/`}>
         <button type="button" className="btn btn-primary" onClick={handleSave}>
           Save
+        </button>
+        <button type="button" className="btn btn-secondary ms-2">
+          Return
         </button>
       </Link>
     </div>

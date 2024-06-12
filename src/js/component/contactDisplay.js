@@ -12,31 +12,53 @@ const ContactDisplay = () => {
         store.contact.map((contact) => (
           <div
             key={contact.name}
-            className="d-flex justify-content-between px-5 col-8 border py-3 my-2"
+            className="d-flex justify-content-between px-3 border py-3"
           >
             <div className="d-flex">
-              <div
-                className="rounded-circle bg-light d-flex align-items-center justify-content-center"
-                style={{ width: "50px", height: "50px" }}
-              >
+              <div className="col-4 d-flex justify-content-center">
                 <img
-                  src={contact.photo}
+                  src="https://www.lavoz.com.ar/resizer/7lXZRn7c4_1smWtG3e1OMakUfNU=/0x0:0x0/1200x630/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/MA7FRJPBZZD5VM2CM7U2UKRJKY.jpg"
                   alt={`${contact.name}'s photo`}
                   className="img-fluid rounded-circle"
                 />
               </div>
               <div className="ms-5">
-                <p>{contact.name}</p>
+                <p className="fw-bold">{contact.name}</p>
                 <ul className="list-unstyled">
-                  <li>{contact.address}</li>
-                  <li>{contact.phone}</li>
-                  <li>{contact.email}</li>
+                  <li>
+                    <i
+                      className="fa-solid fa-location-dot me-2"
+                      style={{ color: "#99a2b2" }}
+                    ></i>
+                    {contact.address}
+                  </li>
+                  <li className="my-1">
+                    <i
+                      className="fa-solid fa-phone-flip me-2"
+                      style={{ color: "#99a2b2" }}
+                    ></i>
+                    {contact.phone}
+                  </li>
+                  <li>
+                    <i
+                      className="fa-solid fa-envelope me-2"
+                      style={{ color: "#99a2b2" }}
+                    ></i>
+                    {contact.email}
+                  </li>
                 </ul>
               </div>
             </div>
-            <div>
-              <span className="me-3 text-primary cursor-pointer">Edit</span>
-              <span className="text-danger cursor-pointer">Delete</span>
+            <div className="d-flex align-items-start">
+              <button className="me-3 btn ">
+                <i className="fa-solid fa-pencil"></i>
+              </button>
+              <button
+                onClick={() => actions.deleteContact(contact.id)}
+                className="btn"
+              >
+                <i className="fa-solid fa-trash-can"></i>
+              </button>
             </div>
           </div>
         ))

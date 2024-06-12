@@ -15,7 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getContactList: async (newUser) => {
         try {
-          const respuesta = await fetch(
+          const response = await fetch(
             `https://playground.4geeks.com/contact/agendas/${newUser}/contacts`,
             {
               method: "GET",
@@ -26,22 +26,67 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
 
-          // Verifica si la respuesta es exitosa
-          if (!respuesta.ok) {
-            // Si no es exitosa, lanza un error con el estado de la respuesta
-            throw new Error(`Error en la solicitud: ${respuesta.status}`);
+          // Check if the response is successful
+          if (!response.ok) {
+            throw new Error(`Request failed with status: ${response.status}`);
           }
 
-          // Convierte la respuesta a formato JSON
-          const datos = await respuesta.json();
-          console.log("GET", datos.contacts),
-            setStore({ contact: datos.contacts });
+          // Parse the response as JSON
+          const data = await response.json();
+          console.log("GET", data.contacts);
 
-          // Devuelve los datos obtenidos
-          return datos;
+          // Update the state/store with the received contacts
+          setStore({ contact: data.contacts });
+
+          // Return the obtained data
+          return data;
         } catch (error) {
-          // Maneja cualquier error que ocurra en el bloque try
-          console.error("Hubo un problema con la solicitud fetch:", error);
+          console.error("Fetch request failed:", error);
+        }
+      },
+
+      deleteContact: (idToDelete) => {
+        const store = getStore();
+        const actions = getActions();
+        const updateContactList = store.contact.filter(
+          (contact) => contact.id !== idToDelete
+        );
+        setStore({ contact: updateContactList });
+        actions.deleteContactAPI(idToDelete);
+      },
+      deleteContactAPI: async (idToDelete) => {
+        const store = getStore();
+
+        try {
+          const response = await fetch(
+            `https://playground.4geeks.com/contact/agendas/${store.userName}/contacts/${idToDelete}`,
+            {
+              method: "DELETE",
+              headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          // Check if the response status indicates success
+          if (!response.ok) {
+            throw new Error(
+              `Failed to delete contact. Status: ${response.status}`
+            );
+          }
+
+          // Check if response body is empty
+          const contentType = response.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/json")) {
+            return {}; // Return an empty object indicating success
+          }
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Fetch request failed:", error);
+          throw error; // Rethrow the error for the caller to handle
         }
       },
     },

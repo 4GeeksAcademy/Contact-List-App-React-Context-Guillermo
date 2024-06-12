@@ -77,7 +77,7 @@ const NavBar = () => {
       </div>
       <div className="col d-flex justify-content-end">
         <Link to="/contactcreator">
-          <button type="button" className="btn btn-success m-3">
+          <button type="button" className="btn btn-success my-3">
             Add new contact
           </button>
         </Link>
