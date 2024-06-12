@@ -9,10 +9,9 @@ const AddContact = () => {
     email: "",
     phone: "",
     address: "",
-    id: "",
   });
 
-  const userCreator = async () => {
+  const contactCreator = async () => {
     try {
       const respuesta = await fetch(
         `https://playground.4geeks.com/contact/agendas/${store.userName}/contacts`,
@@ -28,7 +27,9 @@ const AddContact = () => {
 
       if (!respuesta.ok) {
         throw new Error(`Error en la solicitud: ${respuesta.status}`);
-      } else actions.getContactList(store.userName);
+      } else {
+        actions.getContactList(store.userName);
+      }
 
       const datos = await respuesta.json();
 
@@ -46,19 +47,14 @@ const AddContact = () => {
     }));
   };
 
-  const handleSave = () => {
-    setNewContactInput((prevInput) => ({
-      ...prevInput,
-      [id]: newContactInput.phone,
-    }));
-
+  const handleSave = async (e) => {
+    e.preventDefault();
     actions.addContact(newContactInput);
-    userCreator();
-    console.log(newContactInput);
+    await contactCreator();
   };
 
   return (
-    <div className="container">
+    <form className="container" onSubmit={handleSave}>
       <h1 className="text-center">Add a new contact</h1>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
@@ -91,7 +87,7 @@ const AddContact = () => {
           Phone
         </label>
         <input
-          type="text"
+          type="number"
           className="form-control"
           id="phone"
           name="phone"
@@ -113,15 +109,15 @@ const AddContact = () => {
         />
       </div>
 
+      <button type="submit" className="btn btn-primary">
+        Save
+      </button>
       <Link to={`/`}>
-        <button type="button" className="btn btn-primary" onClick={handleSave}>
-          Save
-        </button>
         <button type="button" className="btn btn-secondary ms-2">
           Return
         </button>
       </Link>
-    </div>
+    </form>
   );
 };
 
