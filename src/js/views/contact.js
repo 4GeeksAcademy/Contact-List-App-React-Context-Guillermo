@@ -1,9 +1,8 @@
 import React from "react";
-import "../../styles/home.css";
-import ContactDisplay from "../component/contactDisplay";
+import ContactDisplay from "../component/contactCard";
 import NavBar from "../component/navBar";
 
-export const Home = () => {
+export const Contact = () => {
   return (
     <div className="container">
       <NavBar />

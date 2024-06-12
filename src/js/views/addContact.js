@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-const ContactCreator = () => {
+const AddContact = () => {
   const { actions, store } = useContext(Context);
   const [newContactInput, setNewContactInput] = useState({
     name: "",
@@ -125,4 +125,4 @@ const ContactCreator = () => {
   );
 };
 
-export default ContactCreator;
+export default AddContact;

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 
-const ContactDisplay = () => {
+const ContactCard = () => {
   const { store, actions } = useContext(Context);
 
   return (
@@ -67,4 +67,4 @@ const ContactDisplay = () => {
   );
 };
 
-export default ContactDisplay;
+export default ContactCard;
