@@ -27,20 +27,13 @@ const AddContact = () => {
     e.preventDefault();
 
     if (store.editedContact.name) {
-      // Si editedContact tiene un nombre, significa que se está editando un contacto existente
       await actions.saveEditContact(newContactInput);
     } else {
-      // Si editedContact no tiene un nombre, significa que se está creando un nuevo contacto
       await actions.contactCreator(newContactInput);
     }
-  
-    // Agregar el nuevo contacto creado o editado a la lista de contactos en el store
+
     actions.addContact(newContactInput);
-  
-    // Resetear el formulario o realizar otras acciones necesarias después de guardar
-    // Por ejemplo, limpiar los campos del formulario
   };
-  
 
   return (
     <form className="container" onSubmit={handleSave}>

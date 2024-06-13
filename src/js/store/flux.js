@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       newUserName: "",
       userName: "",
       contact: [],
-      editedContact: {},
+      editedContact: { name: "", email: "", phone: "", address: "" },
     },
     actions: {
       addContact: (newContact) => {
@@ -186,7 +186,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       saveEditContact: async (contactToEdit) => {
         const store = getStore();
-        const actions= getActions();
+        const actions = getActions();
 
         try {
           const response = await fetch(
