@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 const AddContact = () => {
-  const { actions, store } = useContext(Context);
+  const { actions } = useContext(Context);
   const [newContactInput, setNewContactInput] = useState({
     name: "",
     email: "",
@@ -21,8 +21,8 @@ const AddContact = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    actions.addContact(newContactInput);
     await actions.contactCreator(newContactInput);
+    actions.addContact(newContactInput);
   };
 
   return (
@@ -59,7 +59,7 @@ const AddContact = () => {
           Phone
         </label>
         <input
-          type="number"
+          type="tel"
           className="form-control"
           id="phone"
           name="phone"

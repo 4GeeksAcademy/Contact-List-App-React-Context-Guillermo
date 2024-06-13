@@ -4,10 +4,13 @@ import { Context } from "../store/appContext";
 
 const NavBar = () => {
   const { store, actions } = useContext(Context);
+
   return (
     <div className="row">
       <div className="col">
-        {store.userName.length === 0 ? (
+        {store.userName ? (
+          <h4 className="m-3">{`Lista de contactos de ${store.userName}`}</h4>
+        ) : (
           <div className="input-group m-3">
             <span className="input-group-text" id="username-addon">
               @
@@ -27,8 +30,6 @@ const NavBar = () => {
               <label htmlFor="username">Username</label>
             </div>
           </div>
-        ) : (
-          <h4 className="m-3">{`Lista de contactos de ${store.userName}`}</h4>
         )}
       </div>
       <div className="col d-flex justify-content-end">

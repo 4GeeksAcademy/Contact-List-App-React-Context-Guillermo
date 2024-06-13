@@ -91,6 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               },
             }
           );
+
           const data = await response.json();
           console.log("POST User", data);
           if (data.detail === `Agenda "${store.userName}" already exists.`) {
@@ -107,11 +108,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ newUserName: e.target.value });
       },
       createUserName: (e) => {
-        const store = getStore();
-        const actions = getActions();
         if (e.key === "Enter") {
+          const store = getStore();
+          const actions = getActions();
           setStore({ userName: store.newUserName });
-          console.log(store.userName);
           actions.userCreator();
         }
       },
@@ -134,11 +134,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.status}`);
-          } else {
-            actions.getContactList(store.userName);
           }
+
           const data = await response.json();
           console.log("POST Contact", data);
+          actions.getContactList(store.userName);
 
           return data;
         } catch (error) {
