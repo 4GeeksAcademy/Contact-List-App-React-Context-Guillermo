@@ -70,6 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await response.json();
+          console.log("DELETE", data);
           return data;
         } catch (error) {
           console.error("Fetch request failed:", error);
@@ -91,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
           const data = await response.json();
-          console.log("Response data:", data);
+          console.log("POST User", data);
           if (data.detail === `Agenda "${store.userName}" already exists.`) {
             alert(
               `El usuario ${store.userName} ya existe, cargando lista de contactos`
@@ -112,6 +113,36 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ userName: store.newUserName });
           console.log(store.userName);
           actions.userCreator();
+        }
+      },
+      contactCreator: async (newContactInput) => {
+        const store = getStore();
+        const actions = getActions();
+
+        try {
+          const response = await fetch(
+            `https://playground.4geeks.com/contact/agendas/${store.userName}/contacts`,
+            {
+              method: "POST",
+              headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newContactInput),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status}`);
+          } else {
+            actions.getContactList(store.userName);
+          }
+          const data = await response.json();
+          console.log("POST Contact", data);
+
+          return data;
+        } catch (error) {
+          console.error("Hubo un problema con la solicitud fetch:", error);
         }
       },
     },

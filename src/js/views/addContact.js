@@ -11,34 +11,6 @@ const AddContact = () => {
     address: "",
   });
 
-  const contactCreator = async () => {
-    try {
-      const respuesta = await fetch(
-        `https://playground.4geeks.com/contact/agendas/${store.userName}/contacts`,
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newContactInput),
-        }
-      );
-
-      if (!respuesta.ok) {
-        throw new Error(`Error en la solicitud: ${respuesta.status}`);
-      } else {
-        actions.getContactList(store.userName);
-      }
-
-      const datos = await respuesta.json();
-
-      return datos;
-    } catch (error) {
-      console.error("Hubo un problema con la solicitud fetch:", error);
-    }
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewContactInput((prevInput) => ({
@@ -50,7 +22,7 @@ const AddContact = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     actions.addContact(newContactInput);
-    await contactCreator();
+    await actions.contactCreator(newContactInput);
   };
 
   return (
