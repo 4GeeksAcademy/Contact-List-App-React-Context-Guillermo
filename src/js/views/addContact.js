@@ -36,22 +36,21 @@ const AddContact = () => {
 
     actions.addContact(newContactInput);
 
-    navigate('/'); // Navigate to the home page after saving
+    navigate("/");
   };
 
   return (
     <form className="container" onSubmit={handleSave}>
-      {store.editedContact.name ? (
-        <h1 className="text-center">Edit contact</h1>
-      ) : (
-        <h1 className="text-center">Add a new contact</h1>
-      )}
+      <h1 className="text-center">
+        {store.editedContact ? "Edit Contact" : "Add a New Contact"}
+      </h1>
 
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Full Name
         </label>
         <input
+          placeholder="Enter Name"
           type="text"
           className="form-control"
           id="name"
@@ -65,6 +64,7 @@ const AddContact = () => {
           Email
         </label>
         <input
+          placeholder="Enter Email"
           type="email"
           className="form-control"
           id="email"
@@ -78,6 +78,7 @@ const AddContact = () => {
           Phone
         </label>
         <input
+          placeholder="Enter Phone number"
           type="tel"
           className="form-control"
           id="phone"
@@ -91,6 +92,7 @@ const AddContact = () => {
           Address
         </label>
         <input
+          placeholder="Enter address"
           type="text"
           className="form-control"
           id="address"

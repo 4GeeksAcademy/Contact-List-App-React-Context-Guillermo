@@ -13,18 +13,18 @@ const ContactCard = () => {
     <div className="d-flex flex-column align-items-center">
       {store.contact.map((contact) => (
         <div
-          key={contact.id}
+          key={contact.id??contact.name}
           className="d-flex justify-content-between px-3 border py-3 w-100"
         >
           <div className="d-flex">
-            <div className="col-4 d-flex justify-content-center">
+            <div className="col-3 rounded-circle">
               <img
                 src="https://www.lavoz.com.ar/resizer/7lXZRn7c4_1smWtG3e1OMakUfNU=/0x0:0x0/1200x630/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/MA7FRJPBZZD5VM2CM7U2UKRJKY.jpg"
                 alt={`${contact.name}'s photo`}
                 className="img-fluid rounded-circle"
               />
             </div>
-            <div className="ms-5">
+            <div className="ms-1 ms-md-3 ms-lg-5">
               <p className="fw-bold">{contact.name}</p>
               <ul className="list-unstyled">
                 <li>
@@ -55,7 +55,7 @@ const ContactCard = () => {
             <Link to="/addContact">
               <button
                 onClick={() => actions.editContact(contact)}
-                className="me-3 btn"
+                className="btn"
               >
                 <i className="fa-solid fa-pencil"></i>
               </button>

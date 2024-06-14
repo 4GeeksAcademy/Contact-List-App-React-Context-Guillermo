@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await response.json();
-          console.log("GET", data.contacts);
+          console.log("GETdata", data.contacts);
           setStore({ contact: data.contacts });
           return data;
         } catch (error) {
@@ -109,8 +109,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ newUserName: e.target.value });
       },
       createUserName: (e) => {
-        console.log(e)
-        if (e.key === "Enter" || e.type=== "click") {
+        console.log(e);
+        if (e.key === "Enter" || e.type === "click") {
           const store = getStore();
           const actions = getActions();
           setStore({ userName: store.newUserName });
