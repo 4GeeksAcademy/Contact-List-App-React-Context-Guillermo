@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddContact = () => {
   const { actions, store } = useContext(Context);
@@ -14,6 +14,8 @@ const AddContact = () => {
           address: "",
         };
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +35,8 @@ const AddContact = () => {
     }
 
     actions.addContact(newContactInput);
+
+    navigate('/'); // Navigate to the home page after saving
   };
 
   return (
@@ -95,7 +99,6 @@ const AddContact = () => {
           onChange={handleChange}
         />
       </div>
-
       <button type="submit" className="btn btn-primary">
         {store.editedContact.name ? "Edit" : "Save"}
       </button>

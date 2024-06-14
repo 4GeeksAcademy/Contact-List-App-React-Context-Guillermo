@@ -109,7 +109,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ newUserName: e.target.value });
       },
       createUserName: (e) => {
-        if (e.key === "Enter") {
+        console.log(e)
+        if (e.key === "Enter" || e.type=== "click") {
           const store = getStore();
           const actions = getActions();
           setStore({ userName: store.newUserName });

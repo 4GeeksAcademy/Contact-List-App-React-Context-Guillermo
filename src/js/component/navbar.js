@@ -5,13 +5,20 @@ import { Context } from "../store/appContext";
 const NavBar = () => {
   const { store, actions } = useContext(Context);
 
+  const checkUserName = (e) => {
+    console.log(store.userName);
+    if (store.newUserName && !store.userName) {
+      actions.createUserName(e);
+    } else return;
+  };
+
   return (
-    <div className="row">
+    <div className="row p-4">
       <div className="col">
         {store.userName ? (
           <h4 className="m-3">{`Lista de contactos de ${store.userName}`}</h4>
         ) : (
-          <div className="input-group m-3">
+          <div className="input-group">
             <span className="input-group-text" id="username-addon">
               @
             </span>
@@ -33,11 +40,19 @@ const NavBar = () => {
         )}
       </div>
       <div className="col d-flex justify-content-end">
-        <Link to="/addContact">
-          <button type="button" className="btn btn-success my-3">
-            Add new contact
-          </button>
-        </Link>
+        {!store.newUserName && !store.userName ? (
+          <h3>Select a username</h3>
+        ) : (
+          <Link to="/addContact">
+            <button
+              type="button"
+              onClick={checkUserName}
+              className="btn btn-success my-3"
+            >
+              Add new contact
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
